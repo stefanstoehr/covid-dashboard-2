@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+	  
+    <!-- REQUIRED -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- BOOTSTRAP FOR LAYOUT -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Individual Styles -->
+    <link rel="stylesheet" href="style.css">
+	  
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- CHART.JS FOR CHARTS-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>  
+    
+    <!-- JQUERY FOR COVID-DATA-REQUESTS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <title>Covid Screen CB</title>
+	  
+</head>
+	
+  <body>
+    <!-- HIDDEN DIV FOR CB-DATA-QUERY -->
+    <div id="hiddenCBQuery"></div>
+    <div id="filter"></div>
+    <!-- HEADER -->
+    <nav class="navbar fixed-top navbar-dark bg-dark justify-content-center" style="height: 50px; border-bottom: 1px solid #000000;">
+        <a style="color:rgb(233,233,233)" href="https://www.cottbus.de/verwaltung/gb_iii/gesundheit/corona/index.html">Covid Screen Cottbus/Ch&oacute;&sacute;ebuz</a>
+    </nav>
+    <!-- FOOTER BUTTON FOR MODAL -->
+    <nav class="navbar fixed-bottom navbar-dark bg-dark justify-content-center" style="height: 60px; border-top: 1px solid #000000;">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="color:rgb(233,233,233); background-color:rgba(50,50,50,0); border: 0px;">Quellen - Hinweise - Impressum</button>    
+    </nav>
+    <!-- MODAL = QUELLEN ETC. -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Covid Screen Cottbus/Ch&oacute;&sacute;ebuz</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <h6>Quellenvermerk:</h6><br>
+                <p>Robert Koch-Institut (RKI), dl-de/by-2-0</p><br>
+                
+                <h6>Datenquellen:</h6><br>       
+                <p><a href="https://npgeo-corona-npgeo-de.hub.arcgis.com/">NPGEO Corona Hub 2020/2021</a></p><br>
+                
+                <h6>Hinweise:</h6><br>
+                <p>Die Begrifflichkeiten "Infekte" und "Infektionen" stehen für positive PCR-Tests. Die Begrifflichkeit "Genesen" bedeutet, dass eine Person nach einem positiven Befund nicht mehr PCR-positiv getestet wurde. Für Fragen zu den Daten des RKI finden Sie in deren <a href="https://www.rki.de/SharedDocs/FAQ/NCOV2019/gesamt.html">FAQ-Bereich</a> eine erste Anlaufstelle.</p>
+                <p>Die vom RKI zur Verfügung gestellten Fallzahlen für die Stadt Cottbus/Ch&oacute;&sacute;ebuz werden beim Seitenaufruf von einer REST API des RKI abgefragt. Die Zahlen auf <a href="https://www.cottbus.de/verwaltung/gb_iii/gesundheit/corona/index.html">Cottbus.de</a> unterscheiden sich womöglich von den Zahlen des RKI (vgl. <a href="https://experience.arcgis.com/experience/478220a4c454480e823b17327b2bf1d4">Robert Koch-Institut: COVID-19-Dashboard</a>). Ursachen liegen evtl. in der abgefragten Datenquelle selbst als auch in zeitlichen Übermittlungsfehlern.</p>
+                <p>Die Balkendiagramme (hoverbar/antippbar) sind Auswertungen über die REST API und berücksichtigen Geschlecht und Altersgruppen. Die App repräsentiert Web-Technologien, hingegen muss die Richtigkeit der Statistiken von Data Scientists geprüft werden.</p>
+                <p>Der Quellcode dieser Anwendung steht auf <a href="https://github.com/digital-codebuz/covid19">Github</a> öffentlich unter der Creative Commons Lizen CC-BY-SA zur Verfügung. Bei Hinweisen und Fragen melden Sie sich bitte.</p><br>
+                
+                <h6>Impressum:</h6><br>
+                <p>Ansprechpartner: <a href="https://github.com/stewahn">Stefan Stöhr</a></p>
+		<p>Mail: stefan.stoehr@cottbus.de</p>
+                <p>CC-BY 2021 CB</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- CENTERING CONTAINER -->
+    <div class="outer-container">
+    <div class="inner-container">
+    <div class="container">
+    <div class="row justify-content-center">
+    <!-- UPDATE -->
+		<div class="col-auto mb-3">
+            <div class="card" style="width: 18rem; background-color: rgb(243,243,243); border: 1px solid rgb(100,100,100);">
+                <div class="card-body" style="padding-left: 0; padding-right: 0; padding-bottom: 0;">
+				    <h6 class="card-subtitle mb-2 text-muted">Datenstand</h6>
+                    <h4 class="card-title"><a id="cbUpdate"></a></h4>
+                    <div class="card-footer" style="width: auto; height: 50px; background-color: #343a40">
+                    <small class="text-muted"><a id="rkiUpdate" style="color: rgb(125,125,125);">RKI COVID-19 Datenhub</a></small>
+                  </div>
+                </div>
+            </div>
+        </div>
+    <!-- INZIDENZ -->
+		<div class="col-auto mb-3">
+            <div class="card" style="width: 18rem; background-color: rgb(243,243,243);border: 1px solid rgb(100,100,100);">
+                <div class="card-body" style="padding-left: 0; padding-right: 0; padding-bottom: 0;">
+                    <h6 class="card-subtitle mb-2 text-muted">7-Tage-Inzidenz</h6>
+                    <h4 class="card-title"><a id="cbSieben"></a><!--<a style="color:rgb(250,0,0);font-size: 0.7em; padding-left: 10px;">+</a><a id="countup" style="color:rgb(250,0,0);font-size: 0.7em">4</a>--></h4>
+                    <div class="card-footer" style="width: auto; background-color: #343a40; height: 50px;">
+                      <small class="text-muted"><a id="rkiSieben" style="color: rgb(125,125,125);">RKI COVID-19 Datenhub</a></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- INFEKTIONEN -->    
+		<div class="col-auto mb-3">
+            <div class="card" style="width: 18rem; background-color: rgb(243,243,243);border: 1px solid rgb(100,100,100);">
+                <div class="card-body" style="padding-left: 0; padding-right: 0; padding-bottom: 0;">
+                    <h6 class="card-subtitle mb-2 text-muted">aktive/gesamten Infektionen</h6>
+                    <h4 class="card-title"><a id="cbAktuellInfi"></a><a id="cbGesamtInfi"></a><a style="color: rgb(125,125,125);font-size: 0.7em;" id="cbAktuellInfiChange"></a><!--<a style="color:rgb(250,0,0);font-size: 0.7em; padding-left: 10px;">+</a><a id="countup" style="color:rgb(250,0,0);font-size: 0.7em;">71</a>--></h4>
+                    <div class="card-footer" style="width: auto; background-color: #343a40; height: 50px;">
+                      <small class="text-muted"><a id="rkiAktuellInfi" style="color: rgb(125,125,125);">RKI COVID-19 Datenhub</a></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- GENESEN -->    
+    <div class="col-auto mb-3">
+            <div class="card" style="width: 18rem; background-color: rgb(243,243,243);border: 1px solid rgb(100,100,100);">
+                <div class="card-body" style="padding-left: 0; padding-right: 0; padding-bottom: 0;">
+                    <h6 class="card-subtitle mb-2 text-muted">Genesen</h6>
+                    <h4 class="card-title"><a id="cbGen"></a><!--<a style="color:rgb(25, 150, 0);font-size: 0.7em; padding-left: 10px;">+</a><a id="countup" style="color:rgb(25,150,0);font-size: 0.7em;">38</a>--></h4>
+                    <div class="card-footer" style="width: auto; background-color: #343a40; height: 50px;">
+                      <small class="text-muted"><a id="rkiGen" style="color: rgb(125,125,125);">RKI COVID-19 Datenhub</a></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- VERSTORBEN -->    
+    <div class="col-auto mb-3">
+            <div class="card" style="width: 18rem; background-color: rgb(243,243,243);border: 1px solid rgb(100,100,100);">
+                <div class="card-body" style="padding-left: 0; padding-right: 0; padding-bottom: 0;">
+                    <h6 class="card-subtitle mb-2 text-muted">Verstorben</h6>
+                    <h4 class="card-title"><a id="cbVerstor"></a><a style="color: rgb(125,125,125);font-size: 0.7em;" id="cbVerstorChange"></a><!--<a style="color:rgb(250,0,0);font-size: 0.7em; padding-left: 10px;">+</a><a id="countup" style="color:rgb(250,0,0);font-size: 0.7em">5</a>--></h4>
+                    <div class="card-footer" style="width: auto; background-color: #343a40; height: 50px;">
+                      <small class="text-muted"><a id="rkiVerstor" style="color: rgb(125,125,125);">RKI COVID-19 Datenhub</a></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- QUARANTÄNE -->
+    <div class="col-auto mb-3">
+            <div class="card" style="width: 18rem; background-color: rgb(243,243,243);border: 1px solid rgb(100,100,100);">
+                <div class="card-body" style="padding-left: 0; padding-right: 0; padding-bottom: 0;">
+                    <h6 class="card-subtitle mb-2 text-muted">Datenquelle</h6>
+                    <h4 class="card-title"><a id="cbQuaran">Robert Koch Institut</a><!--<a style="color:rgb(25,150,0);font-size: 0.7em; padding-left: 10px;">-</a><a id="countup" style="color:rgb(25,150,0);font-size: 0.7em;">4</a>--></h4>
+                    <div class="card-footer" style="width: auto; background-color: #343a40; height: 50px;">
+                      <small class="text-muted"><a id="rkiQuaran" style="color: rgb(125,125,125);">RKI COVID-19 Datenhub</a></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- CHART 1 -->
+		<div class="col-auto mb-3">
+            <div class="card" style="width: 18rem; background-color: #343a40;border: 1px solid rgb(100,100,100);">
+                <div class="card-body" style="padding-left: 0; padding-right: 0; padding-bottom: 0;">
+                    <canvas id="chart1"></canvas>
+                </div>
+            </div>
+        </div>
+    <!-- CHART 2 -->
+    <div class="col-auto mb-3">
+            <div class="card" style="width: 18rem; background-color: #343a40;border: 1px solid rgb(100,100,100);">
+                <div class="card-body" style="padding-left: 0; padding-right: 0; padding-bottom: 0;">
+                    <canvas id="chart2"></canvas>
+                </div>
+            </div>
+        </div>
+    <!-- CHART 3 -->
+    <div class="col-auto mb-3">
+            <div class="card" style="width: 18rem; background-color: #343a40;border: 1px solid rgb(100,100,100);">
+                <div class="card-body" style="padding-left: 0; padding-right: 0; padding-bottom: 0;">
+                    <canvas id="chart3"></canvas>
+                </div>
+            </div>
+        </div>
+    <!-- CHART 4 -->
+    <div class="col-auto mb-3">
+        <div class="card" style="width: 18rem; background-color: #343a40;border: 1px solid rgb(100,100,100);">
+            <div class="card-body" style="padding-left: 0; padding-right: 0; padding-bottom: 0;">
+                <canvas id="chart4"></canvas>
+            </div>
+        </div>
+    </div>
+    <!-- CHART 5 -->
+    <div class="col-auto mb-3">
+        <div class="card" style="width: 18rem; background-color:#343a40;border: 1px solid rgb(100,100,100);">
+            <div class="card-body" style="padding-left: 0; padding-right: 0; padding-bottom: 0;">
+                <canvas id="chart5"></canvas>
+            </div>
+        </div>
+    </div>
+    <!-- CHART 6 -->
+    <div class="col-auto mb-3">
+        <div class="card" style="width: 18rem; background-color:#343a40;border: 1px solid rgb(100,100,100);">
+            <div class="card-body" style="padding-left: 0; padding-right: 0; padding-bottom: 0;">
+                <canvas id="chart6"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
