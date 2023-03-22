@@ -84,16 +84,16 @@ function infizierte () {
 		$("#cbGesamtInfi").append(casesData);
 		counting();
 		// FÄLLE NEU
-		$.getJSON('https://services7.arcgis.com/mOBPykOjAyBO2ZKk/ArcGIS/rest/services/rki_history_v/FeatureServer/0/query?where=AdmUnitId%3D12052&objectIds=&time=&resultType=none&outFields=Datum%2CAnzFallNeu&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnDistinctValues=false&cacheHint=false&orderByFields=Datum&groupByFieldsForStatistics=Datum&outStatistics=&having=&resultOffset=&resultRecordCount=&sqlFormat=standard&f=pjson&token=', function(data) {
-			var newAPI = data.features;
-			var newCount = newAPI[newAPI.length - 1].attributes.AnzFallNeu;
+		// $.getJSON('https://services7.arcgis.com/mOBPykOjAyBO2ZKk/ArcGIS/rest/services/rki_history_v/FeatureServer/0/query?where=AdmUnitId%3D12052&objectIds=&time=&resultType=none&outFields=Datum%2CAnzFallNeu&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnDistinctValues=false&cacheHint=false&orderByFields=Datum&groupByFieldsForStatistics=Datum&outStatistics=&having=&resultOffset=&resultRecordCount=&sqlFormat=standard&f=pjson&token=', function(data) {
+			// var newAPI = data.features;
+			// var newCount = newAPI[newAPI.length - 1].attributes.AnzFallNeu;
 			// IMPLEMENT
-			if (newCount > 0) {
-				$("#cbNewRed").append("  +" + newCount);
-			} else {
-				$("#cbNewGreen").append("  gestern gleich");
-			};
-		});
+			// if (newCount > 0) {
+			//	$("#cbNewRed").append("  +" + newCount);
+			//} else {
+			//	$("#cbNewGreen").append("  gestern gleich");
+			//};
+		//});
 	});
 };
 
